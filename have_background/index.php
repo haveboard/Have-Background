@@ -7,7 +7,6 @@ Author: Jonathan Finnegan
 Author URI: http://jonathanfinnegan.com
 Plugin URI: http://jonathanfinnegan.com/have_background
 
-
 Copyright (C) 2011 Jonathan Finnegan
 
 This program is free software; you can redistribute it and/or modify
@@ -24,13 +23,12 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 /* *** */
 /* start background type */
 /* *** */
 
-add_action('init', 'create_background');
-	function create_background() {
+add_action('init', 'hb_create_background');
+	function hb_create_background() {
     	$background_args = array(
     		'label' => __('Backgrounds'),
 			'labels' => array(
@@ -64,12 +62,12 @@ add_action('init', 'create_background');
         );
     	register_post_type('background',$background_args);
 	}
-	add_action("admin_init", "add_background_options");
-	add_action('save_post', 'update_background_options');
-	function add_background_options(){
-		add_meta_box("background_options", "Background Image Options", "background_options", "background", "normal", "low");
+	add_action("admin_init", "hb_add_background_options");
+	add_action('save_post', 'hb_update_background_options');
+	function hb_add_background_options(){
+		add_meta_box("hb_background_options", "Background Image Options", "hb_background_options", "background", "normal", "low");
 	}
-	function background_options(){
+	function hb_background_options(){
 		global $post;
 		$custom = get_post_custom($post->ID);
 		$background_position_horizontal = $custom["background_position_horizontal"][0];
@@ -78,8 +76,8 @@ add_action('init', 'create_background');
 		$background_attachment = $custom["background_attachment"][0];
 		$background_color = $custom["background_color"][0];
 ?>
-<style>
-	#background_options
+<style type="text/css" media="all">
+	#hb_background_options
 	{
 		width:95%;
 		display:block;
@@ -88,79 +86,71 @@ add_action('init', 'create_background');
 		float:none;
 		clear:both;
 	}
-	#background_options label
-	{
-		width:100%;
-		display:block;
-		margin:4px 4px 4px 0;
-		text-align:left;
-		clear:both;
-	}
-	#background_options input
-	{
-		width:auto;
-	}
 	
-	
-	#background_options legend
-	{
-		font-size:1.2em;
-		font-weight:bold;
-	}
-	
-	#background_options fieldset
-	{
-		width:50%;
-		display:block;
-		margin:0 0 20px;
-		text-align:left;
-		float:left;
-	}
+		#hb_background_options label
+		{
+			width:100%;
+			display:block;
+			margin:4px 4px 4px 0;
+			text-align:left;
+			clear:both;
+		}
+
+		#hb_background_options input
+		{
+			width:auto;
+		}
+		
+		#hb_background_options legend
+		{
+			font-size:1.2em;
+			font-weight:bold;
+		}
+
+		#hb_background_options fieldset
+		{
+			width:50%;
+			display:block;
+			margin:0 0 20px;
+			text-align:left;
+			float:left;
+		}
 </style>
 
-<div id="background_options">
+<div id="hb_background_options">
 	<fieldset class="radio"> 
 		<legend>background-position-horizontal:</legend> 
-			<?			
-			if($background_position_horizontal == '') {
-			?>
-			<label><input type="radio" name="background_position_horizontal" value="0" checked="checked" />  <input name="background_position_horizontal" value="0" /> numeric value (px)</label> 
 			<?
+			if($background_position_horizontal == '') {
+			?><label><input type="radio" name="background_position_horizontal" value="0" checked="checked" />
+				<input name="background_position_horizontal" value="0" /> numeric value (px)</label><?
 			}elseif($background_position_horizontal != '' && is_numeric($background_position_horizontal)) {
-			?>
-			<label><input type="radio" name="background_position_horizontal" value="<?php echo $background_position_horizontal; ?>" checked="checked" />  <input name="background_position_horizontal" value="<?php echo $background_position_horizontal; ?>" /> numeric value (px)</label> 
-			<?		
-			}else {
-			?>
-			<label><input type="radio" name="background_position_horizontal" value="" />  <input name="background_position_horizontal" value="" /> numeric value (px)</label> 
-			<?		
+			?><label><input type="radio" name="background_position_horizontal" value="<?php echo $background_position_horizontal; ?>" checked="checked" />
+				<input name="background_position_horizontal" value="<?php echo $background_position_horizontal; ?>" /> numeric value (px)</label><?
+			}else{
+			?><label><input type="radio" name="background_position_horizontal" value="" />
+				<input name="background_position_horizontal" value="" /> numeric value (px)</label><?		
 			}
 			if($background_position_horizontal == 'left') {
-			?>
-			<label><input type="radio" name="background_position_horizontal" value="left" checked="checked" /> left</label> 
-			<?
+			?><label><input type="radio" name="background_position_horizontal" value="left" checked="checked" />
+				left</label><?
 			}else{
-			?>
-			<label><input type="radio" name="background_position_horizontal" value="left" /> left</label> 
-			<?
+			?><label><input type="radio" name="background_position_horizontal" value="left" />
+				left</label><?
 			}
 			if($background_position_horizontal == 'center') {
-			?>
-			<label><input type="radio" name="background_position_horizontal" value="center" checked="checked" /> center</label> 
-			<?
+			?><label><input type="radio" name="background_position_horizontal" value="center" checked="checked" />
+			center</label><?
 			}else{
-			?>
-			<label><input type="radio" name="background_position_horizontal" value="center" /> center</label> 
-			<?
+			?><label><input type="radio" name="background_position_horizontal" value="center" />
+			center</label><?
 			}
 			if($background_position_horizontal == 'right') {
-			?>
-			<label><input type="radio" name="background_position_horizontal" value="right" checked="checked" /> right</label> 
-			<?
+			?><label><input type="radio" name="background_position_horizontal" value="right" checked="checked" />
+				right</label><?
 			}else{
-			?>
-			<label><input type="radio" name="background_position_horizontal" value="right" /> right</label> 
-			<?
+			?><label><input type="radio" name="background_position_horizontal" value="right" />
+				right</label><?
 			}
 			?>
 	</fieldset> 
@@ -168,13 +158,11 @@ add_action('init', 'create_background');
 		<legend>background-color:</legend> 
 		<?
 			if($background_color == '') {
-			?>
-			<label>color:</label>  <input id="background_color" type="text" name="background_color" value="ffffff" />
-			<?
+				?><label>color:</label>
+					<input id="background_color" type="text" name="background_color" value="ffffff" /><?
 			}else{
-			?>
-			<label>color:</label> <input id="background_color" type="text" name="background_color" value="<?php echo $background_color; ?>" />
-			<?
+				?><label>color:</label>
+					<input id="background_color" type="text" name="background_color" value="<?php echo $background_color; ?>" /><?
 			}
 		?>
 	</fieldset>
@@ -182,44 +170,35 @@ add_action('init', 'create_background');
 		<legend>background-position-vertical:</legend> 
 			<?
 			if($background_position_vertical == '') {
-			?>
-			<label><input type="radio" name="background_position_vertical" value="0" checked="checked" />  <input name="background_position_vertical" value="0" /> numeric value (px)</label> 
-			<?
+			?><label><input type="radio" name="background_position_vertical" value="0" checked="checked" />
+				<input name="background_position_vertical" value="0" />
+				numeric value (px)</label><?
 			}elseif($background_position_vertical != '' && is_numeric($background_position_vertical)) {
-			?>
-			<label><input type="radio" name="background_position_vertical" value="<?php echo $background_position_vertical; ?>" checked="checked" />  <input name="background_position_vertical" value="<?php echo $background_position_vertical; ?>" /> numeric value (px)</label> 
-			<?		
+			?><label><input type="radio" name="background_position_vertical" value="<?php echo $background_position_vertical; ?>" checked="checked" />
+				<input name="background_position_vertical" value="<?php echo $background_position_vertical; ?>" /> numeric value (px)</label><?		
 			}else {
-			?>
-			<label><input type="radio" name="background_position_vertical" value="" />  <input name="background_position_vertical" value="" /> numeric value (px)</label> 
-			<?		
+			?><label><input type="radio" name="background_position_vertical" value="" />
+				<input name="background_position_vertical" value="" /> numeric value (px)</label><?		
 			}			
 			if($background_position_vertical == 'top') {
-			?>
-			<label><input type="radio" name="background_position_vertical" value="top" checked="checked" /> top</label> 
-			<?
+			?><label><input type="radio" name="background_position_vertical" value="top" checked="checked" />
+				top</label><?
 			}else{
-			?>
-			<label><input type="radio" name="background_position_vertical" value="top" /> top</label> 
-			<?
+			?><label><input type="radio" name="background_position_vertical" value="top" />
+				top</label><?
 			}
 			if($background_position_vertical == 'center') {
-			?>
-			<label><input type="radio" name="background_position_vertical" value="center" checked="checked" /> center</label> 
-			<?
+			?><label><input type="radio" name="background_position_vertical" value="center" checked="checked" />
+				center</label><?
 			}else{
-			?>
-			<label><input type="radio" name="background_position_vertical" value="center" /> center</label> 
-			<?
+			?><label><input type="radio" name="background_position_vertical" value="center" /> center</label><?
 			}
 			if($background_position_vertical == 'bottom') {
-			?>
-			<label><input type="radio" name="background_position_vertical" value="bottom" checked="checked" /> bottom</label> 
-			<?
+			?><label><input type="radio" name="background_position_vertical" value="bottom" checked="checked" />
+				bottom</label><?
 			}else{
-			?>
-			<label><input type="radio" name="background_position_vertical" value="bottom" /> bottom</label> 
-			<?
+			?><label><input type="radio" name="background_position_vertical" value="bottom" />
+				bottom</label><?
 			}
 			?>
 	</fieldset> 
@@ -227,40 +206,32 @@ add_action('init', 'create_background');
 		<legend>background-repeat:</legend> 
 		<?
 			if($background_repeat == 'repeat' || $background_repeat == '') {
-			?>
-			<label><input type="radio" name="background_repeat" value="repeat" checked="checked" />  repeat</label> 
-			<?
+			?><label><input type="radio" name="background_repeat" value="repeat" checked="checked" />
+				repeat</label><?
 			}else{
-			?>
-			<label><input type="radio" name="background_repeat" value="repeat" />  repeat</label> 
-			<?		
+			?><label><input type="radio" name="background_repeat" value="repeat" />
+				repeat</label><?		
 			}
 			if($background_repeat == 'no-repeat') {
-			?>
-			<label><input type="radio" name="background_repeat" value="no-repeat" checked="checked" />  no-repeat</label> 
-			<?
+			?><label><input type="radio" name="background_repeat" value="no-repeat" checked="checked" />
+				no-repeat</label><?
 			}else{
-			?>
-			<label><input type="radio" name="background_repeat" value="no-repeat" />  no-repeat</label> 
-			<?		
+			?><label><input type="radio" name="background_repeat" value="no-repeat" />
+				no-repeat</label><?		
 			}
 			if($background_repeat == 'repeat-x') {
-			?>
-			<label><input type="radio" name="background_repeat" value="repeat-x" checked="checked" />  repeat-x (left to right)</label> 
-			<?
+			?><label><input type="radio" name="background_repeat" value="repeat-x" checked="checked" />
+				repeat-x (left to right)</label><?
 			}else{
-			?>
-			<label><input type="radio" name="background_repeat" value="repeat-x" />  repeat-x (left to right)</label> 
-			<?		
+			?><label><input type="radio" name="background_repeat" value="repeat-x" />
+				repeat-x (left to right)</label><?		
 			}
 			if($background_repeat == 'repeat-y') {
-			?>
-			<label><input type="radio" name="background_repeat" value="repeat-y" checked="checked" />  repeat-y (top to bottom)</label> 
-			<?
+			?><label><input type="radio" name="background_repeat" value="repeat-y" checked="checked" />
+				repeat-y (top to bottom)</label><?
 			}else{
-			?>
-			<label><input type="radio" name="background_repeat" value="repeat-y" />  repeat-y (top to bottom)</label> 
-			<?		
+			?><label><input type="radio" name="background_repeat" value="repeat-y" />
+				repeat-y (top to bottom)</label><?		
 			}
 		?>
 	</fieldset>
@@ -268,22 +239,18 @@ add_action('init', 'create_background');
 		<legend>background-attachment:</legend> 
 		<?
 			if($background_attachment == 'fixed' || $background_attachment == '') {
-			?>
-			<label><input type="radio" name="background_attachment" value="fixed" checked="checked" />  fixed</label> 
-			<?
+			?><label><input type="radio" name="background_attachment" value="fixed" checked="checked" />
+				fixed</label><?
 			}else{
-			?>
-			<label><input type="radio" name="background_attachment" value="fixed" />  fixed</label> 
-			<?		
+			?><label><input type="radio" name="background_attachment" value="fixed" />
+				fixed</label><?		
 			}
 			if($background_attachment == 'scroll') {
-			?>
-			<label><input type="radio" name="background_attachment" value="scroll" checked="checked" />  scroll</label> 
-			<?
+			?><label><input type="radio" name="background_attachment" value="scroll" checked="checked" />
+				scroll</label><?
 			}else{
-			?>
-			<label><input type="radio" name="background_attachment" value="scroll" />  scroll</label> 
-			<?		
+			?><label><input type="radio" name="background_attachment" value="scroll" />
+				scroll</label><?		
 			}
 		?>
 	</fieldset>
@@ -292,7 +259,7 @@ add_action('init', 'create_background');
 	<div style="clear:both;display:block;"><!--break--></div>
 <?php
 }
-	function update_background_options(){
+	function hb_update_background_options(){
 		global $post;
 		if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
 			return $post->ID;	
@@ -315,7 +282,7 @@ add_action('init', 'create_background');
 /* end background type */
 /* *** */
 
-function admin_header_colorpicker() {
+function hb_admin_header_colorpicker() {
 	
 ?>
 	<link rel="stylesheet" media="screen" type="text/css" href="<?php echo WP_PLUGIN_URL; ?>/have_background/colorpicker/css/colorpicker.css" />
@@ -325,9 +292,9 @@ function admin_header_colorpicker() {
     <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/have_background/colorpicker/js/layout.js"></script>
 <?
 }
-add_action('admin_head', 'admin_header_colorpicker');
+add_action('admin_head', 'hb_admin_header_colorpicker');
 
-function have_bg_select_box($bg_id){
+function hb_have_bg_select_box($bg_id){
 	query_posts("post_type=background");
 	if( $myposts){
 	echo "<select name=\"bg_id\" id=\"bg_id\">";
@@ -349,15 +316,15 @@ function have_bg_select_box($bg_id){
 	}
 }
 
-function add_have_options_page(){
+function hb_add_have_options_page(){
 	$post_types=get_post_types('','names'); 
 	foreach ($post_types as $post_type ) {
 		if($post->post_type == 'background')
-		add_meta_box("have_options_page", "Custom Background", "have_options_page", $post_type, "normal", "high");
+		add_meta_box("hb_have_options_page", "Custom Background", "hb_have_options_page", $post_type, "normal", "high");
 	}	
 }
-add_action("admin_init", "add_have_options_page");	
-	function have_options_page(){
+add_action("admin_init", "hb_add_have_options_page");	
+	function hb_have_options_page(){
 		global $post;
 		$custom = get_post_custom($post->ID);
 		$bg_id = $custom["bg_id"][0];
@@ -365,13 +332,13 @@ add_action("admin_init", "add_have_options_page");
 		?>
 		<div id="have_options">
 		<?
-			echo have_bg_select_box($bg_id);
+			echo hb_have_bg_select_box($bg_id);
 		?>
 		</div><!--end custom bg options-->  	
 		<?php
 	}
 
-function update_have_options_page(){
+function hb_update_have_options_page(){
 	global $post;
 	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
 	return $post->ID;	
@@ -379,13 +346,13 @@ function update_have_options_page(){
 	update_post_meta($post->ID, "bg_id", $_POST["bg_id"]);
 	
 }
-add_action('save_post', 'update_have_options_page');
+add_action('save_post', 'hb_update_have_options_page');
 
 /*
-	have_background_header determines what background image to display
+	hb_have_background_header determines what background image to display
 	posts can have a specific background image, otherwise it pulls a random published background image
 */
-function have_background_header(){
+function hb_have_background_header(){
 global $post, $wpdb;
 //if $bg_id exists, display that for this page instead of random
 if ( is_home() || $post->post_type == 'background') {
@@ -458,5 +425,5 @@ echo "\r\n<style type=\"text/css\">\r\n";
 	echo "		background: ".$background_url." #" . $bg_color.";\r\n";
 	echo "	}\r\n";
 echo "\r\n</style>\r\n";
-}	//function have_background_header
-add_action('wp_head', 'have_background_header');
+}	//function hb_have_background_header
+add_action('wp_head', 'hb_have_background_header');
