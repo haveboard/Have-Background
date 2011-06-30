@@ -1,4 +1,4 @@
-<?
+<?php
 /*
 Plugin Name: Have Background
 Version: 0.3
@@ -120,137 +120,137 @@ add_action('init', 'hb_create_background');
 <div id="hb_background_options">
 	<fieldset class="radio"> 
 		<legend>background-position-horizontal:</legend> 
-			<?
+			<?php
 			if($background_position_horizontal == '') {
 			?><label><input type="radio" name="background_position_horizontal" value="0" checked="checked" />
-				<input name="background_position_horizontal" value="0" /> numeric value (px)</label><?
+				<input name="background_position_horizontal" value="0" /> numeric value (px)</label><?php
 			}elseif($background_position_horizontal != '' && is_numeric($background_position_horizontal)) {
 			?><label><input type="radio" name="background_position_horizontal" value="<?php echo $background_position_horizontal; ?>" checked="checked" />
-				<input name="background_position_horizontal" value="<?php echo $background_position_horizontal; ?>" /> numeric value (px)</label><?
+				<input name="background_position_horizontal" value="<?php echo $background_position_horizontal; ?>" /> numeric value (px)</label><?php
 			}else{
 			?><label><input type="radio" name="background_position_horizontal" value="" />
-				<input name="background_position_horizontal" value="" /> numeric value (px)</label><?		
+				<input name="background_position_horizontal" value="" /> numeric value (px)</label><?php		
 			}
 			if($background_position_horizontal == 'left') {
 			?><label><input type="radio" name="background_position_horizontal" value="left" checked="checked" />
-				left</label><?
+				left</label><?php
 			}else{
 			?><label><input type="radio" name="background_position_horizontal" value="left" />
-				left</label><?
+				left</label><?php
 			}
 			if($background_position_horizontal == 'center') {
 			?><label><input type="radio" name="background_position_horizontal" value="center" checked="checked" />
-			center</label><?
+			center</label><?php
 			}else{
 			?><label><input type="radio" name="background_position_horizontal" value="center" />
-			center</label><?
+			center</label><?php
 			}
 			if($background_position_horizontal == 'right') {
 			?><label><input type="radio" name="background_position_horizontal" value="right" checked="checked" />
-				right</label><?
+				right</label><?php
 			}else{
 			?><label><input type="radio" name="background_position_horizontal" value="right" />
-				right</label><?
+				right</label><?php
 			}
 			?>
 	</fieldset> 
 	<fieldset class="text"> 
 		<legend>background-color:</legend> 
-		<?
+		<?php
 			if($background_color == '') {
 				?><label>color:</label>
-					<input id="background_color" type="text" name="background_color" value="ffffff" /><?
+					<input id="background_color" type="text" name="background_color" value="ffffff" /><?php
 			}else{
 				?><label>color:</label>
-					<input id="background_color" type="text" name="background_color" value="<?php echo $background_color; ?>" /><?
+					<input id="background_color" type="text" name="background_color" value="<?php echo $background_color; ?>" /><?php
 			}
 		?>
 	</fieldset>
 	<fieldset class="radio"> 
 		<legend>background-position-vertical:</legend> 
-			<?
+			<?php
 			if($background_position_vertical == '') {
 			?><label><input type="radio" name="background_position_vertical" value="0" checked="checked" />
 				<input name="background_position_vertical" value="0" />
-				numeric value (px)</label><?
+				numeric value (px)</label><?php
 			}elseif($background_position_vertical != '' && is_numeric($background_position_vertical)) {
 			?><label><input type="radio" name="background_position_vertical" value="<?php echo $background_position_vertical; ?>" checked="checked" />
-				<input name="background_position_vertical" value="<?php echo $background_position_vertical; ?>" /> numeric value (px)</label><?		
+				<input name="background_position_vertical" value="<?php echo $background_position_vertical; ?>" /> numeric value (px)</label><?php		
 			}else {
 			?><label><input type="radio" name="background_position_vertical" value="" />
-				<input name="background_position_vertical" value="" /> numeric value (px)</label><?		
+				<input name="background_position_vertical" value="" /> numeric value (px)</label><?php		
 			}			
 			if($background_position_vertical == 'top') {
 			?><label><input type="radio" name="background_position_vertical" value="top" checked="checked" />
-				top</label><?
+				top</label><?php
 			}else{
 			?><label><input type="radio" name="background_position_vertical" value="top" />
-				top</label><?
+				top</label><?php
 			}
 			if($background_position_vertical == 'center') {
 			?><label><input type="radio" name="background_position_vertical" value="center" checked="checked" />
-				center</label><?
+				center</label><?php
 			}else{
-			?><label><input type="radio" name="background_position_vertical" value="center" /> center</label><?
+			?><label><input type="radio" name="background_position_vertical" value="center" /> center</label><?php
 			}
 			if($background_position_vertical == 'bottom') {
 			?><label><input type="radio" name="background_position_vertical" value="bottom" checked="checked" />
-				bottom</label><?
+				bottom</label><?php
 			}else{
 			?><label><input type="radio" name="background_position_vertical" value="bottom" />
-				bottom</label><?
+				bottom</label><?php
 			}
 			?>
 	</fieldset> 
 	<fieldset class="radio"> 
 		<legend>background-repeat:</legend> 
-		<?
+		<?php
 			if($background_repeat == 'repeat' || $background_repeat == '') {
 			?><label><input type="radio" name="background_repeat" value="repeat" checked="checked" />
-				repeat</label><?
+				repeat</label><?php
 			}else{
 			?><label><input type="radio" name="background_repeat" value="repeat" />
-				repeat</label><?		
+				repeat</label><?php		
 			}
 			if($background_repeat == 'no-repeat') {
 			?><label><input type="radio" name="background_repeat" value="no-repeat" checked="checked" />
-				no-repeat</label><?
+				no-repeat</label><?php
 			}else{
 			?><label><input type="radio" name="background_repeat" value="no-repeat" />
-				no-repeat</label><?		
+				no-repeat</label><?php		
 			}
 			if($background_repeat == 'repeat-x') {
 			?><label><input type="radio" name="background_repeat" value="repeat-x" checked="checked" />
-				repeat-x (left to right)</label><?
+				repeat-x (left to right)</label><?php
 			}else{
 			?><label><input type="radio" name="background_repeat" value="repeat-x" />
-				repeat-x (left to right)</label><?		
+				repeat-x (left to right)</label><?php		
 			}
 			if($background_repeat == 'repeat-y') {
 			?><label><input type="radio" name="background_repeat" value="repeat-y" checked="checked" />
-				repeat-y (top to bottom)</label><?
+				repeat-y (top to bottom)</label><?php
 			}else{
 			?><label><input type="radio" name="background_repeat" value="repeat-y" />
-				repeat-y (top to bottom)</label><?		
+				repeat-y (top to bottom)</label><?php		
 			}
 		?>
 	</fieldset>
 	<fieldset class="radio"> 
 		<legend>background-attachment:</legend> 
-		<?
+		<?php
 			if($background_attachment == 'fixed' || $background_attachment == '') {
 			?><label><input type="radio" name="background_attachment" value="fixed" checked="checked" />
-				fixed</label><?
+				fixed</label><?php
 			}else{
 			?><label><input type="radio" name="background_attachment" value="fixed" />
-				fixed</label><?		
+				fixed</label><?php		
 			}
 			if($background_attachment == 'scroll') {
 			?><label><input type="radio" name="background_attachment" value="scroll" checked="checked" />
-				scroll</label><?
+				scroll</label><?php
 			}else{
 			?><label><input type="radio" name="background_attachment" value="scroll" />
-				scroll</label><?		
+				scroll</label><?php		
 			}
 		?>
 	</fieldset>
@@ -290,7 +290,7 @@ function hb_admin_header_colorpicker() {
     <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/have_background/colorpicker/js/eye.js"></script>
     <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/have_background/colorpicker/js/utils.js"></script>
     <script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/have_background/colorpicker/js/layout.js"></script>
-<?
+<?php
 }
 add_action('admin_head', 'hb_admin_header_colorpicker');
 
@@ -331,7 +331,7 @@ add_action("admin_init", "hb_add_have_options_page");
 		// output editing form
 		?>
 		<div id="have_options">
-		<?
+		<?php
 			echo hb_have_bg_select_box($bg_id);
 		?>
 		</div><!--end custom bg options-->  	
