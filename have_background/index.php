@@ -52,7 +52,7 @@ add_action('init', 'hb_create_background');
 			'public' => true,
 			'show_ui' => true,
 			'capability_type' => 'page',
-			'hierarchical' => true,
+			'hierarchical' => false,
 			'rewrite' => false,
 			'publicly_queryable' => false,
 			'exclude_from_search' => true,
