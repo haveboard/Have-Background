@@ -79,7 +79,7 @@ add_action('init', 'hb_create_background');
 <style type="text/css" media="all">
 	#hb_background_options
 	{
-		width:95%;
+		width:auto;
 		display:block;
 		margin:0 0 15px;
 		text-align:left;
@@ -118,6 +118,46 @@ add_action('init', 'hb_create_background');
 </style>
 
 <div id="hb_background_options">
+
+	<fieldset class="radio"> 
+		<legend>background-attachment:</legend> 
+		<?php
+			if($background_attachment == 'fixed' || $background_attachment == '') {
+			?><label><input type="radio" name="background_attachment" value="fixed" checked="checked" />
+				fixed</label><?php
+			}else{
+			?><label><input type="radio" name="background_attachment" value="fixed" />
+				fixed</label><?php		
+			}
+			if($background_attachment == 'scroll') {
+			?><label><input type="radio" name="background_attachment" value="scroll" checked="checked" />
+				scroll</label><?php
+			}else{
+			?><label><input type="radio" name="background_attachment" value="scroll" />
+				scroll</label><?php		
+			}
+			if($background_attachment == 'full') {
+			?><label><input type="radio" name="background_attachment" value="full" checked="checked" />
+				full (this option ignores position horizontal, position vertical, and repeat settings)</label><?php
+			}else{
+			?><label><input type="radio" name="background_attachment" value="full" />
+				full (this option ignores position horizontal, position vertical, and repeat settings)</label><?php		
+			}
+		?>
+	</fieldset>
+
+	<fieldset class="text"> 
+		<legend>background-color:</legend> 
+		<?php
+			if($background_color == '') {
+				?><label>color:</label>
+					<input id="background_color" type="text" name="background_color" value="ffffff" /><?php
+			}else{
+				?><label>color:</label>
+					<input id="background_color" type="text" name="background_color" value="<?php echo $background_color; ?>" /><?php
+			}
+		?>
+	</fieldset>
 	<fieldset class="radio"> 
 		<legend>background-position-horizontal:</legend> 
 			<?php
@@ -154,18 +194,6 @@ add_action('init', 'hb_create_background');
 			}
 			?>
 	</fieldset> 
-	<fieldset class="text"> 
-		<legend>background-color:</legend> 
-		<?php
-			if($background_color == '') {
-				?><label>color:</label>
-					<input id="background_color" type="text" name="background_color" value="ffffff" /><?php
-			}else{
-				?><label>color:</label>
-					<input id="background_color" type="text" name="background_color" value="<?php echo $background_color; ?>" /><?php
-			}
-		?>
-	</fieldset>
 	<fieldset class="radio"> 
 		<legend>background-position-vertical:</legend> 
 			<?php
@@ -235,26 +263,6 @@ add_action('init', 'hb_create_background');
 			}
 		?>
 	</fieldset>
-	<fieldset class="radio"> 
-		<legend>background-attachment:</legend> 
-		<?php
-			if($background_attachment == 'fixed' || $background_attachment == '') {
-			?><label><input type="radio" name="background_attachment" value="fixed" checked="checked" />
-				fixed</label><?php
-			}else{
-			?><label><input type="radio" name="background_attachment" value="fixed" />
-				fixed</label><?php		
-			}
-			if($background_attachment == 'scroll') {
-			?><label><input type="radio" name="background_attachment" value="scroll" checked="checked" />
-				scroll</label><?php
-			}else{
-			?><label><input type="radio" name="background_attachment" value="scroll" />
-				scroll</label><?php		
-			}
-		?>
-	</fieldset>
-		<br />
 	</div><!--end background-options-->   
 	<div style="clear:both;display:block;"><!--break--></div>
 <?php
@@ -296,31 +304,46 @@ add_action('admin_head', 'hb_admin_header_colorpicker');
 
 function hb_have_bg_select_box($bg_id){
 	query_posts("post_type=background");
-	if( $myposts){
-	echo "<select name=\"bg_id\" id=\"bg_id\">";
+	$myposts = new WP_Query("post_type=background");
+	 if( $myposts){
+?>
+	<select name="bg_id" id="bg_id">
+<?
 	echo "<option value=\"". $postr->ID."\"".$is_blank.">".$postr->post_title."</option>\n\t";
-	foreach($myposts->posts as $postr) :
-		if($postr->ID == $bg_id){
-			$is_selected = " selected=\"selected\"";
+		foreach($myposts->posts as $postr) :
+			if($postr->ID == $bg_id){
+				$is_selected = " selected=\"selected\"";
+			}else{
+				$is_selected = "";
+			}
+			echo "<option value=\"". $postr->ID."\"".$is_selected.">".$postr->post_title."</option>\n\t";
+	
+		endforeach;
+		if($bg_id == ""){
+		
+			echo "<option value=\"\" selected=\"selected\">random background</option>\n\t";
 		}else{
-			$is_selected = "";
+			echo "<option value=\"\">random background</option>\n\t";
+		
 		}
-		echo "<option value=\"". $postr->ID."\"".$is_selected.">".$postr->post_title."</option>\n\t";
-	endforeach;
-	if($bg_id == ""){
-		echo "<option value=\"\" selected=\"selected\">random background</option>\n\t";
-	}else{
-		echo "<option value=\"\">random background</option>\n\t";
+?>	
+	</select>
+<?
 	}
-	echo "</select>";
-	}
+	?>
+	
+	<?
 }
+
 
 function hb_add_have_options_page(){
 	$post_types=get_post_types('','names'); 
 	foreach ($post_types as $post_type ) {
-		if($post->post_type == 'background')
-		add_meta_box("hb_have_options_page", "Custom Background", "hb_have_options_page", $post_type, "normal", "high");
+		if($post_type == 'background'){
+			//dont show on background page
+		}else{
+			add_meta_box("hb_have_options_page", "Custom Background", "hb_have_options_page", $post_type, "normal", "high");
+		}
 	}	
 }
 add_action("admin_init", "hb_add_have_options_page");	
@@ -347,6 +370,17 @@ function hb_update_have_options_page(){
 	
 }
 add_action('save_post', 'hb_update_have_options_page');
+
+
+
+
+//load jquery on front end
+function hb_load_jquery(){
+	if(!is_admin()){
+		wp_enqueue_script('jquery');
+	}
+}
+add_action('init','hb_load_jquery');
 
 /*
 	hb_have_background_header determines what background image to display
@@ -416,14 +450,53 @@ if((isset($bg_id) && $bg_id != "") && is_search() == FALSE){
 	if($background_url ==""){
 		$background_url = "";
 	}else{
+		$background_url_full = $background_url;
 		$background_url = "url(".$background_url.") ".$bg_repeat." ".$bg_position_horizontal." ".$bg_position_vertical." ".$bg_attach;
 	
 	}
-echo "\r\n<style type=\"text/css\">\r\n";
-	echo "	body\r\n";
-	echo "	{\r\n";
-	echo "		background: ".$background_url." #" . $bg_color.";\r\n";
-	echo "	}\r\n";
-echo "\r\n</style>\r\n";
+	
+	if($bg_attach == 'full'){
+		echo "\r\n<style type=\"text/css\">\r\n";
+			echo "	body\r\n";
+			echo "	{\r\n";
+			echo "		background: #" . $bg_color.";\r\n";
+			echo "	}\r\n";
+		echo "\r\n</style>\r\n";
+		
+		?>
+		<link rel="stylesheet" href="<?php echo WP_PLUGIN_URL; ?>/have_background/supersized/css/supersized.core.css" type="text/css" media="screen" />
+		
+		<?php
+		?>
+
+		<script type="text/javascript" src="<?php echo WP_PLUGIN_URL; ?>/have_background/supersized/js/supersized.core.3.2.1.min.js"></script>
+		
+		<script type="text/javascript">
+			
+			jQuery(function($){
+				
+				$.supersized({
+					slides  :  	[ {image : '<?php echo $background_url_full; ?>'} ]
+				});
+		    });
+		    
+		</script>
+		
+		
+		<?
+		
+	}else{	
+		echo "\r\n<style type=\"text/css\">\r\n";
+			echo "	body\r\n";
+			echo "	{\r\n";
+			echo "		background: ".$background_url." #" . $bg_color.";\r\n";
+			echo "	}\r\n";
+		echo "\r\n</style>\r\n";
+	}
 }	//function hb_have_background_header
 add_action('wp_head', 'hb_have_background_header');
+
+
+
+
+
