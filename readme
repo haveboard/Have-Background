@@ -1,8 +1,17 @@
 Have Background allows you to display a random backround on every page. You can also set specific pages to show only a particular backup.
 
-This is a work in progress and has not been tested 100%. Please send any bug reports to jonathan.finnegan@gmail.com
+This is a work in progress and has not been tested 100%. Please report any bugs at https://github.com/haveboard/Have-Background
 
-It includes "Color picker" by Author Stefan Petre www.eyecon.ro
+Includes "Color picker" & "Supersized"
 
+	Supersized - Fullscreen Slideshow jQuery Plugin
+		Author	: Sam Dunn
+		http://www.buildinternet.com/project/supersized		
+		www.onemightyroar.com
+
+ 	Color picker
+		Author: Stefan Petre www.eyecon.ro
+		http://www.eyecon.ro/colorpicker/
+ 
 http://jonathanfinnegan.com/have_background/
 http://jonathanfinnegan.com/
