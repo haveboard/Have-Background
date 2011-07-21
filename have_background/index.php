@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Have Background
-Version: 0.4
+Version: 0.5
 Description: customize the background of your pages
 Author: Jonathan Finnegan
 Author URI: http://jonathanfinnegan.com
@@ -494,7 +494,7 @@ if((isset($bg_id) && $bg_id != "") && is_search() == FALSE){
 		echo "\r\n</style>\r\n";
 	}
 }	//function hb_have_background_header
-add_action('wp_head', 'hb_have_background_header');
+add_action('wp_footer', 'hb_have_background_header');
 
 
 
