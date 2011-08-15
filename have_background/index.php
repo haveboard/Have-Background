@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Have Background
-Version: 0.5
+Version: 0.5.1
 Description: customize the background of your pages
 Author: Jonathan Finnegan
 Author URI: http://jonathanfinnegan.com
@@ -395,9 +395,9 @@ if ( is_home() || $post->post_type == 'background') {
 	$bg_id = get_post_meta($post->ID, "bg_id", true);
 }
 if((isset($bg_id) && $bg_id != "") && is_search() == FALSE){
-	$index_background = $wpdb->get_results( $wpdb->prepare("SELECT * FROM  `wp_posts` WHERE  `ID` =  ".$bg_id." LIMIT 1" ));	
+	$index_background = $wpdb->get_results( $wpdb->prepare("SELECT * FROM  `$wpdb->posts` WHERE  `ID` =  ".$bg_id." LIMIT 1" ));	
 }else{	
-	$index_background = $wpdb->get_results( $wpdb->prepare("SELECT * FROM  `wp_posts` WHERE `post_type` = 'background' AND `post_status` = 'publish' ORDER BY rand() LIMIT 1" ));	
+	$index_background = $wpdb->get_results( $wpdb->prepare("SELECT * FROM  `$wpdb->posts` WHERE `post_type` = 'background' AND `post_status` = 'publish' ORDER BY rand() LIMIT 1" ));	
 }
 	if( $index_background){
 		$count = 0;
