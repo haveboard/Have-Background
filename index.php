@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Have Background
-Version: 0.5.1
+Version: 0.5.2
 Description: customize the background of your pages
 Author: Jonathan Finnegan
 Author URI: http://jonathanfinnegan.com
