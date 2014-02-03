@@ -395,7 +395,7 @@ if ( is_home() || $post->post_type == 'background') {
 	$bg_id = get_post_meta($post->ID, "bg_id", true);
 }
 if((isset($bg_id) && $bg_id != "") && is_search() == FALSE){
-	$index_background = $wpdb->get_results( $wpdb->prepare("SELECT * FROM  `$wpdb->posts` WHERE  `ID` =  ".$bg_id." LIMIT 1" ));	
+	$index_background = $wpdb->get_results( $wpdb->prepare("SELECT * FROM  `$wpdb->posts` WHERE  `ID` =  %i LIMIT 1",$bg_id ));	
 }else{	
 	$index_background = $wpdb->get_results( $wpdb->prepare("SELECT * FROM  `$wpdb->posts` WHERE `post_type` = 'background' AND `post_status` = 'publish' ORDER BY rand() LIMIT 1" ));	
 }
