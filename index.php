@@ -1,5 +1,6 @@
 <?php
 /*
+NEW COMMENT
 Plugin Name: Have Background
 Version: 0.5.2
 Description: customize the background of your pages
