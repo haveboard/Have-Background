@@ -2,6 +2,7 @@
 /*
 NEW COMMENT
 NEW COMMENT 2
+NEW COMMENT 3
 Plugin Name: Have Background
 Version: 0.5.2
 Description: customize the background of your pages
